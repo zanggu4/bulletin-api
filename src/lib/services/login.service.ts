@@ -9,6 +9,9 @@ export class LoginService {
 
 	async loginOrThrow(username: string, password: string): Promise<AccessTokenEntity> {
 		const user = await this.userRepo.getUser(username);
+		if (!user) {
+			throw Error('User not found');
+		}
 		const isMatchedPassword = await comparePassword(password, user.password);
 		if (!isMatchedPassword) {
 			throw Error('Login failure');
