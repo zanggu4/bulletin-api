@@ -5,6 +5,7 @@ node_modules
 .vercel
 /.svelte-kit
 /build
+prisma/dev.db*
 
 # OS
 .DS_Store
