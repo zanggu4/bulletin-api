@@ -16,8 +16,8 @@ export class PostRepository {
 		return this.prisma.post.findFirst({ where: { id: id } });
 	}
 
-	async createPost(title: string, content: string, userId: number) {
-		this.prisma.post.create({
+	async createPost(title: string, content: string, userId: number): Promise<Post> {
+		return this.prisma.post.create({
 			data: {
 				title: title,
 				content: content,
