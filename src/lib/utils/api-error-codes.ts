@@ -28,6 +28,10 @@ export enum DuplicationErrorCodes {
 	USERNAME_EXISTS = 'DUPLICATION_ERROR_USERNAME_EXISTS'
 }
 
+export enum PostErrorCodes {
+	NOT_FOUND = 'POST_ERROR_NOT_FOUND'
+}
+
 export enum ServerErrorCodes {
 	INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
 	SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
@@ -38,4 +42,5 @@ export type ApiErrorCode =
 	| ValidationErrorCodes
 	| AuthenticationErrorCodes
 	| ServerErrorCodes
-	| DuplicationErrorCodes;
+	| DuplicationErrorCodes
+	| PostErrorCodes;
