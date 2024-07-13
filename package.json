@@ -37,8 +37,10 @@
 		"@sveltejs/adapter-node": "^5.2.0",
 		"@types/bcrypt": "^5.0.2",
 		"@types/jsonwebtoken": "^9.0.6",
+		"@types/swagger-ui": "^3.52.4",
 		"bcrypt": "^5.1.1",
 		"jsonwebtoken": "^9.0.2",
-		"prisma": "^5.16.1"
+		"prisma": "^5.16.1",
+		"swagger-ui": "^5.17.14"
 	}
 }

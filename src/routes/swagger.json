@@ -1,0 +1,431 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "게시판 앱을 만들기 위한 API입니다",
+		"version": "1.0.0",
+		"title": "개발새발냥발 게시판",
+		"contact": {
+			"email": "lhj@nyandev.com"
+		}
+	},
+	"host": "bulletin.nyandev.com",
+	"basePath": "/",
+	"tags": [
+		{
+			"name": "auth",
+			"description": "인증 관련(로그인, 회원가입)"
+		},
+		{
+			"name": "posts",
+			"description": "게시물 목록/조회/작성"
+		}
+	],
+	"schemes": ["https", "http"],
+	"paths": {
+		"/auth/signin": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "로그인",
+				"description": "Authenticates a user and returns an access token and refresh token",
+				"operationId": "userLogin",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Login credentials",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/LoginRequest"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful login",
+						"schema": {
+							"$ref": "#/definitions/Auth"
+						}
+					},
+					"400": {
+						"description": "Invalid input"
+					},
+					"401": {
+						"description": "Unauthorized"
+					}
+				}
+			}
+		},
+		"/auth/signup": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "회원가입",
+				"description": "Registers a new user and returns an access token and refresh token",
+				"operationId": "userSignup",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "User registration data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/SignupRequest"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Successful registration",
+						"schema": {
+							"$ref": "#/definitions/Auth"
+						}
+					},
+					"400": {
+						"description": "Invalid input"
+					},
+					"409": {
+						"description": "Username or email already exists"
+					}
+				}
+			}
+		},
+		"/posts": {
+			"get": {
+				"tags": ["posts"],
+				"summary": "게시물 목록",
+				"description": "",
+				"operationId": "getPosts",
+				"parameters": [
+					{
+						"in": "query",
+						"name": "lastId",
+						"description": "커서 기반 페이지네이션, 0이나 null일 경우 가장 최근 게시물 표시",
+						"required": false,
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "성공",
+						"schema": {
+							"$ref": "#/definitions/Post"
+						},
+						"examples": {
+							"application/json": [
+								{
+									"id": 7,
+									"title": "제목을 입력해보자7",
+									"content": "내용을 입력해보자7",
+									"userId": 1,
+									"createdAt": "2024-07-06T15:17:44.477Z",
+									"updatedAt": "2024-07-06T15:17:44.477Z",
+									"user": {
+										"username": "zanggu4",
+										"profile": {
+											"name": "이현재"
+										}
+									}
+								},
+								{
+									"id": 6,
+									"title": "제목을 입력해보자6",
+									"content": "내용을 입력해보자6",
+									"userId": 1,
+									"createdAt": "2024-07-06T15:13:05.510Z",
+									"updatedAt": "2024-07-06T15:13:05.510Z",
+									"user": {
+										"username": "zanggu4",
+										"profile": {
+											"name": "이현재"
+										}
+									}
+								},
+								{
+									"id": 5,
+									"title": "제목을 입력해보자5",
+									"content": "내용을 입력해보자5",
+									"userId": 1,
+									"createdAt": "2024-07-06T15:12:43.506Z",
+									"updatedAt": "2024-07-06T15:12:43.506Z",
+									"user": {
+										"username": "zanggu4",
+										"profile": {
+											"name": "이현재"
+										}
+									}
+								},
+								{
+									"id": 4,
+									"title": "제목을 입력해보자4",
+									"content": "내용을 입력해보자4",
+									"userId": 1,
+									"createdAt": "2024-07-06T15:10:05.056Z",
+									"updatedAt": "2024-07-06T15:10:05.056Z",
+									"user": {
+										"username": "zanggu4",
+										"profile": {
+											"name": "이현재"
+										}
+									}
+								},
+								{
+									"id": 3,
+									"title": "제목을 입력해보자3",
+									"content": "내용을 입력해보자3",
+									"userId": 1,
+									"createdAt": "2024-07-06T15:10:01.263Z",
+									"updatedAt": "2024-07-06T15:10:01.263Z",
+									"user": {
+										"username": "zanggu4",
+										"profile": {
+											"name": "이현재"
+										}
+									}
+								},
+								{
+									"id": 2,
+									"title": "제목을 입력해보자2",
+									"content": "내용을 입력해보자2",
+									"userId": 1,
+									"createdAt": "2024-07-06T15:06:39.744Z",
+									"updatedAt": "2024-07-06T15:06:39.744Z",
+									"user": {
+										"username": "zanggu4",
+										"profile": {
+											"name": "이현재"
+										}
+									}
+								},
+								{
+									"id": 1,
+									"title": "제목을 입력해보자",
+									"content": "내용을 입력해보자",
+									"userId": 1,
+									"createdAt": "2024-07-06T15:06:24.695Z",
+									"updatedAt": "2024-07-06T15:06:24.695Z",
+									"user": {
+										"username": "zanggu4",
+										"profile": {
+											"name": "이현재"
+										}
+									}
+								}
+							]
+						}
+					}
+				},
+				"security": [
+					{
+						"petstore_auth": ["write:pets", "read:pets"]
+					}
+				]
+			},
+			"post": {
+				"tags": ["posts"],
+				"summary": "게시물 작성",
+				"description": "",
+				"operationId": "createPost",
+				"consumes": ["application/json"],
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "Authorization",
+						"in": "header",
+						"description": "Bearer token",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"description": "JSON 파라미터",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/NewPost"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "성공",
+						"schema": {
+							"$ref": "#/definitions/Post"
+						}
+					},
+					"400": {
+						"description": "Invalid input"
+					}
+				}
+			}
+		},
+		"/posts/{id}": {
+			"get": {
+				"tags": ["posts"],
+				"summary": "게시물 하나 조회",
+				"description": "",
+				"operationId": "getPostById",
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "id",
+						"description": "게시물 번호",
+						"in": "path",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/PostResponse"
+						},
+						"examples": {
+							"application/json": {
+								"id": 4,
+								"title": "제목을 입력해보자4",
+								"content": "내용을 입력해보자4",
+								"userId": 1,
+								"createdAt": "2024-07-06T15:10:05.056Z",
+								"updatedAt": "2024-07-06T15:10:05.056Z",
+								"user": {
+									"username": "zanggu4",
+									"profile": {
+										"name": "이현재"
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "게시물이 존재하지 않습니다."
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Auth": {
+			"type": "object",
+			"properties": {
+				"accessToken": {
+					"type": "string"
+				},
+				"refreshToken": {
+					"type": "string"
+				}
+			},
+			"example": {
+				"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsLLLhdCI6MTcyMDgzNjUyOSwiZXhwIjoxNzIwODM4MzI5fQ.mQX99Xp0Nnve-dVaSD3FOM-Xv7HsLvQJmnGmD5OyDtg",
+				"refreshToken": "77f74496-22e3-44e7-ae11-ac9cc124b350"
+			}
+		},
+		"LoginRequest": {
+			"type": "object",
+			"required": ["username", "password"],
+			"properties": {
+				"username": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"example": {
+				"username": "lhj",
+				"password": "1234"
+			}
+		},
+		"SignupRequest": {
+			"type": "object",
+			"required": ["username", "password", "email", "name"],
+			"properties": {
+				"username": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string",
+					"format": "email"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"example": {
+				"username": "lhj",
+				"password": "1234",
+				"email": "lhj@nyandev.com",
+				"name": "이현재"
+			}
+		},
+		"Post": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer"
+				},
+				"title": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				},
+				"userId": {
+					"type": "integer"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"user": {
+					"$ref": "#/definitions/PostUser"
+				}
+			}
+		},
+		"PostUser": {
+			"type": "object",
+			"properties": {
+				"username": {
+					"type": "string"
+				},
+				"profile": {
+					"$ref": "#/definitions/PostUserProfile"
+				}
+			}
+		},
+		"PostUserProfile": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				}
+			}
+		},
+		"NewPost": {
+			"type": "object",
+			"required": ["title", "content"],
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				}
+			},
+			"example": {
+				"title": "제목",
+				"content": "내용"
+			}
+		}
+	}
+}
