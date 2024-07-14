@@ -44,7 +44,8 @@ export const POST = async ({ request }) => {
 				message: '이미 존재하는 계정입니다.'
 			});
 		}
-		const result = await userRepository.createUser(username, name, email, password);
+		await userRepository.createUser(username, name, email, password);
+		const result = await loginService.loginOrThrow(username, password);
 		return success({ data: result });
 	} catch {
 		return failure({
